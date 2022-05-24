@@ -1,4 +1,4 @@
-function [Rplus] = IntegrateOpenLoop(Rminus, gyros, deltaT)
+function [Rplus] = IntegrateOpenLoop(Rminus, gyros, deltaT, UseMatrixExponential)
 % function [Rplus] = IntegrateOpenLoop(Rminus, gyros, deltaT)
 %
 % Function to Integrate the gyros to the attitude DCM
@@ -13,7 +13,7 @@ function [Rplus] = IntegrateOpenLoop(Rminus, gyros, deltaT)
 % matrix exponential version of the integration, change the flag in the
 % code below to pick between them.
 
-UseMatrixExponential = 1;   % set to zero for forward integration
+%UseMatrixExponential = 1;   % set to zero for forward integration
 
 if (UseMatrixExponential),
     Rplus = Rexp(gyros, deltaT) * Rminus;

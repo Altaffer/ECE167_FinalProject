@@ -23,10 +23,10 @@ function [Rplus, Bplus] = IntegrateClosedLoop(Rminus, Bminus, gyros, mags, accel
 % gains are constant and set internally, modify as needed.
 
 
-Kp_a=10;
+Kp_a=1;
 Ki_a=Kp_a/10;
 
-Kp_m=10;
+Kp_m=0.5;
 Ki_m=Kp_m/10;
 
 accels = accels/norm(accels);                       % set mags and accels to unit vectors
