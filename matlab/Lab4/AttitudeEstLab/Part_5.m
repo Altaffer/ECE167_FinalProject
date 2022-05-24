@@ -24,6 +24,7 @@ p_bias = 0; q_bias = 0; r_bias = 0;   % with integral gain
 accelInertial=[0;0;1];
 He = [22825;5393;41690.2];     % Earth's magnetic field in mT (NED)
 magInertial=He/norm(He);
+disp(magInertial)
 
 % integrate DCM and collect data to plot
 DCMplus = zeros(3);

@@ -5,6 +5,12 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>Part1_DCM2Euler.h</itemPath>
+      <itemPath>../../Common/BOARD.h</itemPath>
+      <itemPath>../../Common/serial.h</itemPath>
+      <itemPath>../../Common/timers.h</itemPath>
+      <itemPath>../../Common/BNO055.h</itemPath>
+      <itemPath>../../Common/I2C.h</itemPath>
+      <itemPath>CL-INTEGRATOR.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -15,7 +21,13 @@
                    projectFiles="true">
       <itemPath>Part1_DCM2Euler.c</itemPath>
       <itemPath>Lab4_Main.c</itemPath>
-      <itemPath>Part6.c</itemPath>
+      <itemPath>../../Common/BOARD.c</itemPath>
+      <itemPath>../../Common/serial.c</itemPath>
+      <itemPath>Parts6to8Main.c</itemPath>
+      <itemPath>../../Common/timers.c</itemPath>
+      <itemPath>../../Common/BNO055.c</itemPath>
+      <itemPath>../../Common/I2C.c</itemPath>
+      <itemPath>CL-INTEGRATOR.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -23,6 +35,9 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>../../Common</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="default" type="2">
@@ -31,7 +46,7 @@
         <targetDevice>PIC32MX340F512H</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>4.00</languageToolchainVersion>
         <platform>3</platform>
@@ -67,7 +82,7 @@
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
       <C32>
-        <property key="additional-warnings" value="true"/>
+        <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
@@ -202,6 +217,8 @@
         <property key="stack-smashing" value=""/>
         <property key="wpo-lto" value="false"/>
       </C32Global>
+      <item path="Lab4_Main.c" ex="true" overriding="false">
+      </item>
       <PICkit3PlatformTool>
         <property key="ADC 1" value="true"/>
         <property key="AutoSelectMemRanges" value="auto"/>
@@ -240,6 +257,7 @@
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
