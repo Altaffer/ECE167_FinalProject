@@ -5,6 +5,13 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>Part1_DCM2Euler.h</itemPath>
+      <itemPath>MatrixMath.h</itemPath>
+      <itemPath>../../Common/BNO055.h</itemPath>
+      <itemPath>BOARD.h</itemPath>
+      <itemPath>I2C.h</itemPath>
+      <itemPath>serial.h</itemPath>
+      <itemPath>Part3_Rexp.h</itemPath>
+      <itemPath>../../Common/timers.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -15,6 +22,13 @@
                    projectFiles="true">
       <itemPath>Part1_DCM2Euler.c</itemPath>
       <itemPath>Lab4_Main.c</itemPath>
+      <itemPath>Part3_Rexp.c</itemPath>
+      <itemPath>MatrixMath.c</itemPath>
+      <itemPath>../../Common/BNO055.c</itemPath>
+      <itemPath>../../Common/BOARD.c</itemPath>
+      <itemPath>../../Common/I2C.c</itemPath>
+      <itemPath>../../Common/serial.c</itemPath>
+      <itemPath>../../Common/timers.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -22,6 +36,9 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>../../Common</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="default" type="2">
@@ -30,7 +47,7 @@
         <targetDevice>PIC32MX340F512H</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>noID</platformTool>
+        <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>4.00</languageToolchainVersion>
         <platform>3</platform>
@@ -66,7 +83,7 @@
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
       <C32>
-        <property key="additional-warnings" value="true"/>
+        <property key="additional-warnings" value="false"/>
         <property key="addresss-attribute-use" value="false"/>
         <property key="enable-app-io" value="false"/>
         <property key="enable-omit-frame-pointer" value="false"/>
