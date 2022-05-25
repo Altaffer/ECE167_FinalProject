@@ -16,4 +16,4 @@
  * @return 0 if error, 1 if succeeded
  * @brief  returns yaw pict roll from DCM
  */
-void DCM2Euler(float DCM[3][3], float Euler[3][1]);
+void DCM2Euler(double DCM[3][3], double Euler[3][1]);

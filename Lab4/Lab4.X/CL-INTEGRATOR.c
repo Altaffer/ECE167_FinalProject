@@ -14,11 +14,12 @@
 #include <sys/attribs.h>
 #include <math.h>
 #include "Part1_DCM2Euler.h"
+#include "MatrixMath.h"
 
 /*
  * ------------------ Block below are some MM helper functions -------------------------
  */
-void normalize(float A[3][3], int meas[3][1], float B[3][1], float hat[3][1]) {
+void normalize(double A[3][3], int meas[3][1], double B[3][1], double hat[3][1]) {
     
     hat[0][0] = A[0][0]*meas[0][0] + A[0][1]*meas[1][0] + A[0][2]*meas[2][0] + B[0][0];
     hat[1][0] = A[1][0]*meas[0][0] + A[1][1]*meas[1][0] + A[1][2]*meas[2][0] + B[1][0];
@@ -27,14 +28,14 @@ void normalize(float A[3][3], int meas[3][1], float B[3][1], float hat[3][1]) {
     return;
 }
 
-void R_OnebyThree(float A[3][3], float meas[3][1], float hat[3][1]) {
+void R_OnebyThree(double A[3][3], double meas[3][1], double hat[3][1]) {
     hat[0][0] = A[0][0]*meas[0][0] + A[0][1]*meas[1][0] + A[0][2]*meas[2][0];
     hat[1][0] = A[1][0]*meas[0][0] + A[1][1]*meas[1][0] + A[1][2]*meas[2][0];
     hat[2][0] = A[2][0]*meas[0][0] + A[2][1]*meas[1][0] + A[2][2]*meas[2][0];
     return;
 }
 
-void skew(float A[3][1], float result[3][3]) {
+void skew(double A[3][1], double result[3][3]) {
     result[0][0] = 0;
     result[0][1] = -A[2][0];
     result[0][2] = A[1][0];
@@ -49,6 +50,100 @@ void skew(float A[3][1], float result[3][3]) {
     
     return;
 }
+
+void Rexp(double w[3][1], double dT, double R_exp[3][3]) {
+    double wx[3][3] = {// Initialization of the 3x3 matrix
+    {},
+    {},
+    {}
+    };
+    double I[3][3] = {// Identity Matrix
+        {1, 0, 0},
+        {0, 1, 0},
+        {0, 0, 1}
+    };
+    double result1[3][3] = {// Initialization of the 3x3 matrix
+        {},
+        {},
+        {}
+    };
+    double result2[3][3] = {// Initialization of the 3x3 matrix
+        {},
+        {},
+        {}
+    };
+    double result3[3][3] = {// Initialization of the 3x3 matrix
+        {},
+        {},
+        {}
+    };
+    double result4[3][3] = {// Initialization of the 3x3 matrix
+        {},
+        {},
+        {}
+    };
+    double result5[3][3] = {// Initialization of the 3x3 matrix
+        {},
+        {},
+        {}
+    };
+    double result6[3][3] = {// Initialization of the 3x3 matrix
+        {},
+        {},
+        {}
+    };
+    // Other vaiables used
+    double magw; // mantitude of omegaw 
+    double mag_wxdT; // magnitude of omegax time time step
+    double s; // holer fpr math involving sine
+    double c; // holder for math involving cosine
+    
+    // finding the magnitude of w
+    magw = sqrt((pow(w[0][0], 2))+(pow(w[1][0], 2))+(pow(w[2][0], 2)));
+
+    // Creating the wx matrix
+    // row 1
+    wx[0][0] = 0;
+    wx[0][1] = -w[2][0];
+    wx[0][2] = w[1][0];
+    // row 2
+    wx[1][0] = w[2][0];
+    wx[1][1] = 0;
+    wx[1][2] = -w[0][0];
+    //row 3
+    wx[2][0] = -w[1][0];
+    wx[2][1] = w[0][0];
+    wx[2][2] = 0;
+
+    // mag of omegax dT
+    mag_wxdT = sqrt((2 * pow((w[0][0] * dT), 2)) + (2 * pow((w[1][0] * dT), 2)) + (2 * pow((w[2][0] * dT), 2)));
+
+    // Returning R_exp if the magnitude is larger than the threshold
+    if (mag_wxdT >= 0.02) {
+        s = sin(magw * dT) / magw; // sin math
+        c = (1 - cos(magw * dT)) / (pow(magw, 2)); // cos math
+        MatrixMultiply(wx, wx, result1);
+        MatrixScalarMultiply(c, result1, result2);
+        MatrixScalarMultiply(s, wx, result3);
+        MatrixSubtract(I, result3, result4);
+        MatrixAdd(result4, result2, R_exp);
+    } else {
+        s = dT - (((pow(dT, 3))*(pow(magw, 2))) / 6)+(((pow(dT, 5))*(pow(magw, 4))) / 120);
+        c = (((pow(dT, 2)) / 2)-(((pow(dT, 4))*(pow(magw, 2)) / 24)+(((pow(dT, 6))*(pow(magw, 4)) / 720))));
+        MatrixMultiply(wx, wx, result1);
+        MatrixScalarMultiply(c, result1, result2);
+        MatrixScalarMultiply(s, wx, result3);
+        MatrixSubtract(I, result3, result4);
+        MatrixAdd(result4, result2, R_exp);
+    }
+}
+
+void Integrate_R(double w[3][1], double dT, double R_exp[3][3], double PrevR[3][3], double newR[3][3]) {
+    // FORWARD INTEGRATION
+    Rexp(w, dT, R_exp); // calling Rexp func
+    MatrixMultiply(R_exp, PrevR, newR); // multiplying the previous position by the Rexp matrix
+}
+
 /*
  * ------------------End helper function block, below is CL integration -----------------
  */
@@ -59,65 +154,65 @@ void skew(float A[3][1], float result[3][3]) {
  * Below is the matrices from the tumble test calibration in Lab 3
  *
  */
-static float Atilde_mag[3][3] = {{0.0012, 0, 0},
+static double Atilde_mag[3][3] = {{0.0012, 0, 0},
                                 {0, 0.0013, 0},
                                 {0, 0, 0.0013}};
-static float Btilde_mag[3][1] = {{0.8127},
+static double Btilde_mag[3][1] = {{0.8127},
                                 {-0.3073},
                                 {0.5926}};
-static float Atilde_accel[3][3] = {{0.9736e-03, -0.0110e-03, -0.0051e-03},
+static double Atilde_accel[3][3] = {{0.9736e-03, -0.0110e-03, -0.0051e-03},
                                 {-0.0045e-03, 0.9818e-03, 0.0350e-03},
                                 {0.0009e-03, 0.0014e-03, 0.9732e-03}};
-static float Btilde_accel[3][1] = {{0.0244},
+static double Btilde_accel[3][1] = {{0.0244},
                                 {0.0269},
                                 {0.0520}};
 
 /*
  * Below are the inertial unit vectors for accelerometer and magnetometer
  */
-static float a_i[3][1] = {{0},
+static double a_i[3][1] = {{0},
                             {0},
                             {1}};
-static float m_i[3][1] = {{0.4772},
-                            {0.1127},
-                            {0.8716}};
+static double m_i[3][1] = {{0.0826},
+                            {0.6548},
+                            {0.7513}};
 
 /*
  * Below is Rmis from batch misalignment
  */
-static float Rmis[3][3] = {{1,0,0},
+static double Rmis[3][3] = {{1,0,0},
                         {0,1,0},
                         {0,0,1}};
 
 /*
  * Below are the holders for current values of R and Bs, initted to 0
  */
-float R_k[3][3] = {{1,0,0},
+double R_k[3][3] = {{1,0,0},
                     {0,1,0},
                     {0,0,1}};
-float b_k[3][1] = {{0},
+double b_k[3][1] = {{0},
                     {0},
                     {0}}; 
 
 /*
  * Below are the placeholder matrices for R_plus and B_plus
  */
-float R_kPlus[3][3];
-float b_kPlus[3][1];
+double R_kPlus[3][3];
+double b_kPlus[3][1];
 
 /*
  * Below are some integration parameters
  */
-float dT = 0.02;        // in seconds, 50Hz
-float Kp_a = 1;         // accelerometer proportional gain
-float Ki_a = 1/10;      // Kp_a/10;    // acc integral gain
-float Kp_m = 0.5;       // mag prop gain
-float Ki_m = 0.5/10;    // Kp_m/10;   // mag int gain
+double dT = 0.02;        // in seconds, 50Hz
+double Kp_a = 0;//10;         // accelerometer proportional gain
+double Ki_a = 0;//10/10;      // Kp_a/10;    // acc integral gain
+double Kp_m = 5;       // mag prop gain
+double Ki_m = 5/10;    // Kp_m/10;   // mag int gain
 
 /*
  * This value holds a running timer value
  */
-float time_elapsed = 0; // in seconds
+double time_elapsed = 0; // in seconds
 
 /**
  * @function    CL_Integrate()
@@ -131,70 +226,71 @@ float time_elapsed = 0; // in seconds
  * 
  * NOTE: following lab appendix A with this integrator
  */
-void CL_Integrate(float R_plus[3][3], float b_plus[3][1], float R_minus[3][3], float b_minus[3][1], \
+void CL_Integrate(double R_plus[3][3], double b_plus[3][1], double R_minus[3][3], double b_minus[3][1], \
                     int gyro_meas[3][1], int acc_meas[3][1], int mag_meas[3][1]) {
     
     /*
      * convert data to unit norm and align mag and accel
      */
-    float a_hat[3][1];  // unit norm of accel data
-    float m_hat[3][1];  // unit norm of mag data
+    double a_hat[3][1];  // unit norm of accel data
+    double m_hat[3][1];  // unit norm of mag data
     normalize(Atilde_accel, acc_meas, Btilde_accel, a_hat);
     normalize(Atilde_mag, mag_meas, Btilde_mag, m_hat);
     
-    float m_aligned[3][1]; // aligned m matrix
+    double m_aligned[3][1]; // aligned m matrix
     R_OnebyThree(Rmis, m_hat, m_aligned);
     
     /*
      * convert gyro Int16 into rad/sec
      */
-    float gyro_rps[3][1] = {{gyro_meas[0][0] * (1/((1/250)*(pow(2,15)-1)) * 0.0174533)},
-                            {gyro_meas[1][0] * (1/((1/250)*(pow(2,15)-1)) * 0.0174533)},
-                            {gyro_meas[2][0] * (1/((1/250)*(pow(2,15)-1)) * 0.0174533)}};  
+    // from bits/(deg/s) -> deg/s : (1/((1/250)*(pow(2,15)-1)) -> 0.00762
+    // from deg/s to rad/s -> 0.0174533
+    double gyro_rps[3][1] = {{gyro_meas[0][0] * 0.00762 * 0.0174533},
+                            {gyro_meas[1][0] * 0.00762 * 0.0174533},
+                            {gyro_meas[2][0] * 0.00762 * 0.0174533}};
     
     /*
      * solve for omegas using feedback (see lab appendx)
      */
-    float w[3][1] = {{gyro_rps[0][0] - b_minus[0][0]},
+    double w[3][1] = {{gyro_rps[0][0] - b_minus[0][0]},
                     {gyro_rps[1][0] - b_minus[1][0]},
                     {gyro_rps[2][0] - b_minus[2][0]}};
     
     // for:  w meas a = (ab_skew)(R*a_i)
-    float Rai[3][1];
+    double Rai[3][1];
     R_OnebyThree(R_minus, a_i, Rai);
-    float abcross[3][3];
+    double abcross[3][3];
     skew(a_hat, abcross);
     
-    float w_measA[3][1];
+    double w_measA[3][1];
     R_OnebyThree(abcross, Rai, w_measA);
     
     // for:  w meas m = (mb_skew)(R*m_i)
-    float Rmi[3][1];
+    double Rmi[3][1];
     R_OnebyThree(R_minus, m_i, Rmi);
-    float mbcross[3][3];
+    double mbcross[3][3];
     skew(m_aligned, mbcross);
     
-    float w_measM[3][1];
+    double w_measM[3][1];
     R_OnebyThree(mbcross, Rmi, w_measM);
     
     // for w total = w + Kpa*wmeasA + kpm*wmeasM
-    float w_total[3][1] = {{w[0][0] + Kp_a*w_measA[0][0] + Kp_m*w_measM[0][0]},
+    double w_total[3][1] = {{w[0][0] + Kp_a*w_measA[0][0] + Kp_m*w_measM[0][0]},
                             {w[1][0] + Kp_a*w_measA[1][0] + Kp_m*w_measM[1][0]},
                             {w[2][0] + Kp_a*w_measA[2][0] + Kp_m*w_measM[2][0]}};
     
     /*
      * Integrate R using matrix exponential as in part 3 of the lab
      */
-    
-    // - - - - - - - - - - - - - - - - -  - - - 
-    // - - - - - - -  - - - 
+    double R_exp[3][3];
+    Integrate_R(w_total, dT, R_exp, R_k, R_kPlus);
     
     /*
      * integrate the bias b
      */
     
     // the rate of change of the bias using the integral gains to scale
-    float b_dot[3][1] = {{-Ki_a*w_measA[0][0] - Ki_m*w_measM[0][0]},
+    double b_dot[3][1] = {{-Ki_a*w_measA[0][0] - Ki_m*w_measM[0][0]},
                         {-Ki_a*w_measA[0][0] - Ki_m*w_measM[0][0]},
                         {-Ki_a*w_measA[0][0] - Ki_m*w_measM[0][0]}};
     
@@ -269,7 +365,7 @@ void __ISR(_TIMER_4_VECTOR) Timer4IntHandler(void) {
 /*
  * function here converts the DCM to euler angles and returns them
  */
-void INTEGRATOR_GetEuler(float Euler[3][1]) {
+void INTEGRATOR_GetEuler(double Euler[3][1]) {
     DCM2Euler(R_k, Euler);
     return;
 }
@@ -277,7 +373,7 @@ void INTEGRATOR_GetEuler(float Euler[3][1]) {
 /*
  * this checks the current time on the timer in ms
  */
-float INTEGRATOR_TimeElapsed(void) {
+double INTEGRATOR_TimeElapsed(void) {
     return time_elapsed;
 }
 
