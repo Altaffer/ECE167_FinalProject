@@ -269,8 +269,9 @@ void __ISR(_TIMER_4_VECTOR) Timer4IntHandler(void) {
 /*
  * function here converts the DCM to euler angles and returns them
  */
-float INTEGRATOR_GetEuler(void) {
-    return DCM2Euler(R_k);
+void INTEGRATOR_GetEuler(float Euler[3][1]) {
+    DCM2Euler(R_k, Euler);
+    return;
 }
 
 /*

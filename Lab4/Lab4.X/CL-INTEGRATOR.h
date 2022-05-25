@@ -32,7 +32,7 @@ void CL_Integrate(float* R_plus[3][3], float* b_plus[3][1], float R_minus[3][3],
  * @brief       gets the current euler angles
  * @return      the euler angles in degrees
  */
-float INTEGRATOR_GetEuler(void);
+void INTEGRATOR_GetEuler(float Euler[3][1]);
 
 /**
  * @function    INTEGRATOR_TimeElapsed()

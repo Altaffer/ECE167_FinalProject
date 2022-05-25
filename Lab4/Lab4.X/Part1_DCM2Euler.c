@@ -10,10 +10,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-float DCM2Euler(float DCM[3][3]) {
-    
-    // create a vector of euler angles to return
-    float euler[3]; // [yaw, pitch, roll]
+void DCM2Euler(float DCM[3][3], float Euler[3][1]) {
     
     // solve for the yaw value in radians
     float yaw_radians = atan2f(DCM[0][1], DCM[0][0]);
@@ -25,10 +22,10 @@ float DCM2Euler(float DCM[3][3]) {
     float roll_radians = atan2(DCM[1][2], DCM[2][2]);
     
     // return the values in degrees
-    euler[0] = yaw_radians * 57.2958;
-    euler[1] = pitch_radians * 57.2958;
-    euler[2] = roll_radians * 57.2958;
+    Euler[0][0] = yaw_radians * 57.2958;
+    Euler[1][0] = pitch_radians * 57.2958;
+    Euler[2][0] = roll_radians * 57.2958;
     
-    return *euler;
+    return;
     
 }

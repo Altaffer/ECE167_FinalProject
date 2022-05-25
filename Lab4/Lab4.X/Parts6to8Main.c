@@ -24,8 +24,19 @@ int main(void) {
     // starts the timer for the integrator
     INTEGRATOR_Init();
     
+    // for timer
+    float last_time = 0;
+    
     while(1) {
-        
+        if(INTEGRATOR_TimeElapsed() > (last_time + 1)) {
+            last_time = INTEGRATOR_TimeElapsed();
+            
+            float Euler[3][1];
+            INTEGRATOR_GetEuler(Euler);
+            
+            printf("yaw: %f  ,  pitch: %f  ,  roll: %f  ,  time: %f\n", \
+                    Euler[0][0], Euler[1][0], Euler[2][0], last_time);
+        }
     }
     
     while(1);
