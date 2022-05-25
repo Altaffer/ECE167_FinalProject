@@ -173,9 +173,9 @@ static double Btilde_accel[3][1] = {{0.0244},
 static double a_i[3][1] = {{0},
                             {0},
                             {1}};
-static double m_i[3][1] = {{0.4772},
-                            {0.1127},
-                            {0.8716}};
+static double m_i[3][1] = {{0.0826},
+                            {0.6548},
+                            {0.7513}};
 
 /*
  * Below is Rmis from batch misalignment
