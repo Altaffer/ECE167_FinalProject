@@ -5,22 +5,13 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>Part1_DCM2Euler.h</itemPath>
-<<<<<<< HEAD
       <itemPath>../../Common/BOARD.h</itemPath>
       <itemPath>../../Common/serial.h</itemPath>
       <itemPath>../../Common/timers.h</itemPath>
       <itemPath>../../Common/BNO055.h</itemPath>
       <itemPath>../../Common/I2C.h</itemPath>
       <itemPath>CL-INTEGRATOR.h</itemPath>
-=======
       <itemPath>MatrixMath.h</itemPath>
-      <itemPath>../../Common/BNO055.h</itemPath>
-      <itemPath>BOARD.h</itemPath>
-      <itemPath>I2C.h</itemPath>
-      <itemPath>serial.h</itemPath>
-      <itemPath>Part3_Rexp.h</itemPath>
-      <itemPath>../../Common/timers.h</itemPath>
->>>>>>> Part3_1
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -31,7 +22,6 @@
                    projectFiles="true">
       <itemPath>Part1_DCM2Euler.c</itemPath>
       <itemPath>Lab4_Main.c</itemPath>
-<<<<<<< HEAD
       <itemPath>../../Common/BOARD.c</itemPath>
       <itemPath>../../Common/serial.c</itemPath>
       <itemPath>Parts6to8Main.c</itemPath>
@@ -39,15 +29,8 @@
       <itemPath>../../Common/BNO055.c</itemPath>
       <itemPath>../../Common/I2C.c</itemPath>
       <itemPath>CL-INTEGRATOR.c</itemPath>
-=======
-      <itemPath>Part3_Rexp.c</itemPath>
       <itemPath>MatrixMath.c</itemPath>
-      <itemPath>../../Common/BNO055.c</itemPath>
-      <itemPath>../../Common/BOARD.c</itemPath>
-      <itemPath>../../Common/I2C.c</itemPath>
-      <itemPath>../../Common/serial.c</itemPath>
-      <itemPath>../../Common/timers.c</itemPath>
->>>>>>> Part3_1
+      <itemPath>Part3_Rexp.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -57,6 +40,7 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>../../Common</Elem>
+    <Elem>.</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -238,6 +222,20 @@
         <property key="wpo-lto" value="false"/>
       </C32Global>
       <item path="Lab4_Main.c" ex="true" overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
       </item>
       <PICkit3PlatformTool>
         <property key="ADC 1" value="true"/>
@@ -312,6 +310,8 @@
         <property key="programoptions.uselvpprogramming" value="false"/>
         <property key="voltagevalue" value="3.25"/>
       </PICkit3PlatformTool>
+      <item path="Part3_Rexp.c" ex="true" overriding="false">
+      </item>
       <Tool>
         <property key="ADC 1" value="true"/>
         <property key="AutoSelectMemRanges" value="auto"/>
@@ -350,6 +350,7 @@
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>

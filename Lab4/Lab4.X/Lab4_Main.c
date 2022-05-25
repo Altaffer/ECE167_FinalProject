@@ -18,6 +18,7 @@
 #include "MatrixMath.h"
 #include "Part3_Rexp.h"
 #include "timers.h"
+#include "Part1_DCM2Euler.h"
 
 
 #define PART3
@@ -59,10 +60,10 @@ int main(void) {
     while (1) {
         if (TIMERS_GetMilliSeconds() % 1000 <= 3) {
             Integrate_R(omega, delT, matrix_exp, prevMatrix, newMatrix);
-            printf("R with Rexp: \n\r");
-            printf("[%lf, %lf, %lf]\n\r", newMatrix[0][0], newMatrix[0][1], newMatrix[0][2]);
-            printf("[%lf, %lf, %lf]\n\r", newMatrix[1][0], newMatrix[1][1], newMatrix[1][2]);
-            printf("[%lf, %lf, %lf]\n\r", newMatrix[2][0], newMatrix[2][1], newMatrix[2][2]);
+            //printf("R with Rexp: \n\r");
+            //printf("[%lf, %lf, %lf]\n\r", newMatrix[0][0], newMatrix[0][1], newMatrix[0][2]);
+            //printf("[%lf, %lf, %lf]\n\r", newMatrix[1][0], newMatrix[1][1], newMatrix[1][2]);
+            //printf("[%lf, %lf, %lf]\n\r", newMatrix[2][0], newMatrix[2][1], newMatrix[2][2]);
             prevMatrix[0][0] = newMatrix[0][0];
             prevMatrix[0][1] = newMatrix[0][1];
             prevMatrix[0][2] = newMatrix[0][2];
@@ -72,7 +73,9 @@ int main(void) {
             prevMatrix[2][0] = newMatrix[2][0];
             prevMatrix[2][1] = newMatrix[2][1];
             prevMatrix[2][2] = newMatrix[2][2];
-
+            double Eul[3][1];
+            DCM2Euler(newMatrix, Eul);
+            printf("yaw %f    pitch %f    roll %f\n", Eul[0][0], Eul[1][0], Eul[2][0]);
 
         }
     }
