@@ -5,14 +5,6 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>Part1_DCM2Euler.h</itemPath>
-<<<<<<< HEAD
-      <itemPath>../../Common/BOARD.h</itemPath>
-      <itemPath>../../Common/serial.h</itemPath>
-      <itemPath>../../Common/timers.h</itemPath>
-      <itemPath>../../Common/BNO055.h</itemPath>
-      <itemPath>../../Common/I2C.h</itemPath>
-      <itemPath>CL-INTEGRATOR.h</itemPath>
-=======
       <itemPath>MatrixMath.h</itemPath>
       <itemPath>../../Common/BNO055.h</itemPath>
       <itemPath>BOARD.h</itemPath>
@@ -20,7 +12,6 @@
       <itemPath>serial.h</itemPath>
       <itemPath>Part3_Rexp.h</itemPath>
       <itemPath>../../Common/timers.h</itemPath>
->>>>>>> Part3_1
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -31,23 +22,13 @@
                    projectFiles="true">
       <itemPath>Part1_DCM2Euler.c</itemPath>
       <itemPath>Lab4_Main.c</itemPath>
-<<<<<<< HEAD
-      <itemPath>../../Common/BOARD.c</itemPath>
-      <itemPath>../../Common/serial.c</itemPath>
-      <itemPath>Parts6to8Main.c</itemPath>
-      <itemPath>../../Common/timers.c</itemPath>
-      <itemPath>../../Common/BNO055.c</itemPath>
-      <itemPath>../../Common/I2C.c</itemPath>
-      <itemPath>CL-INTEGRATOR.c</itemPath>
-=======
-      <itemPath>Part3_Rexp.c</itemPath>
       <itemPath>MatrixMath.c</itemPath>
       <itemPath>../../Common/BNO055.c</itemPath>
       <itemPath>../../Common/BOARD.c</itemPath>
       <itemPath>../../Common/I2C.c</itemPath>
       <itemPath>../../Common/serial.c</itemPath>
       <itemPath>../../Common/timers.c</itemPath>
->>>>>>> Part3_1
+      <itemPath>Part3_Rexp.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -57,6 +38,7 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>../../Common</Elem>
+    <Elem>.</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -237,8 +219,6 @@
         <property key="stack-smashing" value=""/>
         <property key="wpo-lto" value="false"/>
       </C32Global>
-      <item path="Lab4_Main.c" ex="true" overriding="false">
-      </item>
       <PICkit3PlatformTool>
         <property key="ADC 1" value="true"/>
         <property key="AutoSelectMemRanges" value="auto"/>
