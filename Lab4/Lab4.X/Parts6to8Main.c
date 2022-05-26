@@ -33,13 +33,13 @@ int main(void) {
     double last_time = 0;
     
     while(1) {
-        if(INTEGRATOR_TimeElapsed() > (last_time)) {
+        if(INTEGRATOR_TimeElapsed() > (last_time + 0.25)) {
             last_time = INTEGRATOR_TimeElapsed();
             
             double Euler[3][1];
             INTEGRATOR_GetEuler(Euler);
             
-            printf("%d,%d,%d,%f\n", \
+            printf("y: %d,  p: %d,  R: %d,       t: %f\n", \
                     (int)Euler[0][0], (int)Euler[1][0], (int)Euler[2][0], last_time);
         }
     }

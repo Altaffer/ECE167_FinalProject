@@ -8,7 +8,7 @@
  * @param R_exp[3][3], The output of the function, the Rexp matrix
  * @return None
  * @author Luca Altaffer*/
-void Rexp(double w[3],int dT,double R_exp[3][3]);
+void Rexp(double w[3],int dT,double R_exp[3][3], int biasp, int biasq, int biasr);
 
 /**
  * Conducts the math for the forward integration
@@ -18,6 +18,6 @@ void Rexp(double w[3],int dT,double R_exp[3][3]);
  * @param newR[3][3], the updated matrix
  * @return None
  * @author Luca Altaffer*/
-void Integrate_R(double w[3],int dT, double R_exp[3][3], double prevMatrix[3][3], double newR[3][3]);
+void Integrate_R(double w[3],int dT, double R_exp[3][3], double prevMatrix[3][3], double newR[3][3], int biasp, int biasq, int biasr);
 
 #endif

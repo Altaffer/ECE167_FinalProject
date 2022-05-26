@@ -180,9 +180,9 @@ static double m_i[3][1] = {{0.0826},
 /*
  * Below is Rmis from batch misalignment
  */
-static double Rmis[3][3] = {{1,0,0},
-                        {0,1,0},
-                        {0,0,1}};
+static double Rmis[3][3] = {{-0.8744,0.1629,-0.4571},
+                        {-0.2333,0.6850,0.6902},
+                        {0.4256,0.7101,-0.5610}};
 
 /*
  * Below are the holders for current values of R and Bs, initted to 0
@@ -204,8 +204,8 @@ double b_kPlus[3][1];
  * Below are some integration parameters
  */
 double dT = 0.02;        // in seconds, 50Hz
-double Kp_a = 0;//10;         // accelerometer proportional gain
-double Ki_a = 0;//10/10;      // Kp_a/10;    // acc integral gain
+double Kp_a = 10;         // accelerometer proportional gain
+double Ki_a = 10/10;      // Kp_a/10;    // acc integral gain
 double Kp_m = 5;       // mag prop gain
 double Ki_m = 5/10;    // Kp_m/10;   // mag int gain
 

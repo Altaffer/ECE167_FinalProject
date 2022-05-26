@@ -57,9 +57,31 @@ int main(void) {
      *****/
 #ifdef PART3
     // forward integration with Rexp
+    int a = 0;
+    int tally = 0;
+    int biasp = 0;
+    int biasq = 0;
+    int biasr = 0;
+    printf("collecting biases\n");
     while (1) {
-        if (TIMERS_GetMilliSeconds() % 1000 <= 3) {
-            Integrate_R(omega, delT, matrix_exp, prevMatrix, newMatrix);
+        // sum the biases over 10 seconds
+        if (TIMERS_GetMilliSeconds() < 10000 && a == 0) {
+            tally += 1;
+            
+            biasp += BNO055_ReadGyroZ();
+            biasq += BNO055_ReadGyroX();
+            biasr += BNO055_ReadGyroY();
+            
+        }
+        // take the average of the biases
+        if (TIMERS_GetMilliSeconds() > 10000 && a == 0) {
+            biasp = biasp / tally;
+            biasp = biasp / tally;
+            biasp = biasp / tally;
+            a = 1;
+        }
+        if (TIMERS_GetMilliSeconds() % 1000 <= 3 && a == 1) {
+            Integrate_R(omega, delT, matrix_exp, prevMatrix, newMatrix, biasp, biasq, biasr);
             //printf("R with Rexp: \n\r");
             //printf("[%lf, %lf, %lf]\n\r", newMatrix[0][0], newMatrix[0][1], newMatrix[0][2]);
             //printf("[%lf, %lf, %lf]\n\r", newMatrix[1][0], newMatrix[1][1], newMatrix[1][2]);
@@ -75,7 +97,7 @@ int main(void) {
             prevMatrix[2][2] = newMatrix[2][2];
             double Eul[3][1];
             DCM2Euler(newMatrix, Eul);
-            printf("yaw %f    pitch %f    roll %f\n", Eul[0][0], Eul[1][0], Eul[2][0]);
+            printf("yaw %f    pitch %f    roll %f   time %d\n", Eul[0][0], Eul[1][0], Eul[2][0], TIMERS_GetMilliSeconds()/1000);
 
         }
     }

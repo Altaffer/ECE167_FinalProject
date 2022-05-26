@@ -68,11 +68,11 @@ double c; // holder for math involving cosine
 //int dT;
 //double R_exp[3][3];
 
-void Rexp(double w[3], int dT, double R_exp[3][3]) {
+void Rexp(double w[3], int dT, double R_exp[3][3], int biasp, int biasq, int biasr) {
     // Setting the gyro values to be in the matrix 
-    w[0] = (250 * BNO055_ReadGyroZ()) / (32767); // p 
-    w[1] = (250 * BNO055_ReadGyroX()) / 32767; // q
-    w[2] = (250 * BNO055_ReadGyroY()) / 32767; // r
+    w[0] = ((250 * (BNO055_ReadGyroZ()-biasp)) / (32767)) * 0.0174533; // p 
+    w[1] = ((250 * (BNO055_ReadGyroX()-biasq)) / 32767) * 0.0174533; // q
+    w[2] = ((250 * (BNO055_ReadGyroY()-biasr)) / 32767) * 0.0174533; // r
 
     // finding the magnitude of w
     magw = sqrt((pow(w[0], 2))+(pow(w[1], 2))+(pow(w[2], 2)));
@@ -115,8 +115,8 @@ void Rexp(double w[3], int dT, double R_exp[3][3]) {
     //    R_exp = result5;
 }
 
-void Integrate_R(double w[3], int dT, double R_exp[3][3], double PrevR[3][3], double newR[3][3]) {
+void Integrate_R(double w[3], int dT, double R_exp[3][3], double PrevR[3][3], double newR[3][3], int biasp, int biasq, int biasr) {
     // FORWARD INTEGRATION
-    Rexp(w, dT, R_exp); // calling Rexp func
+    Rexp(w, dT, R_exp, biasp, biasq, biasr); // calling Rexp func
     MatrixMultiply(R_exp, PrevR, newR); // multiplying the previous position by the Rexp matrix
 }

@@ -12,6 +12,7 @@
       <itemPath>../../Common/I2C.h</itemPath>
       <itemPath>CL-INTEGRATOR.h</itemPath>
       <itemPath>MatrixMath.h</itemPath>
+      <itemPath>Part3_Rexp.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -311,6 +312,20 @@
         <property key="voltagevalue" value="3.25"/>
       </PICkit3PlatformTool>
       <item path="Part3_Rexp.c" ex="true" overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
       </item>
       <Tool>
         <property key="ADC 1" value="true"/>
