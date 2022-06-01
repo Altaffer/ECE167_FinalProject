@@ -9,6 +9,8 @@
       <itemPath>../../Common/timers.h</itemPath>
       <itemPath>../../Common/BNO055.h</itemPath>
       <itemPath>../../Common/I2C.h</itemPath>
+      <itemPath>../../Common/kneeRotation.h</itemPath>
+      <itemPath>../../Common/AD.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -23,6 +25,9 @@
       <itemPath>../../Common/BNO055.c</itemPath>
       <itemPath>../../Common/I2C.c</itemPath>
       <itemPath>main.c</itemPath>
+      <itemPath>../../Common/kneeRotation.c</itemPath>
+      <itemPath>../../Common/AD.c</itemPath>
+      <itemPath>../../Common/testFlex.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -251,7 +256,6 @@
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
@@ -359,6 +363,8 @@
         <property key="programoptions.uselvpprogramming" value="false"/>
         <property key="voltagevalue" value="3.25"/>
       </Tool>
+      <item path="main.c" ex="true" overriding="false">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>
