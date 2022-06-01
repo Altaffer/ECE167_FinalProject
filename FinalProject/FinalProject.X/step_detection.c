@@ -58,13 +58,13 @@ double magnitude(double x, double y, double z) {
  * below are some variables that will hold values used for the running averages
  */
 static int sample_size_acc = 25;    // sample size of the running averages
-static int sample_size_gyro = 25;
+static int sample_size_gyro = 10;
 
 int running_avg_acc[25];        // arrays to hold running averages
-int running_avg_gyro[25];       // BE SURE ARRAY SIZE = SAMPLE SIZE
+int running_avg_gyro[10];       // BE SURE ARRAY SIZE = SAMPLE SIZE
 
 static int acc_threshold_offset = 20;   // offset to calibrated values so noise
-static int gyro_threshold_offset = 20;  // does not indicate moving
+static int gyro_threshold_offset = 3000;  // does not indicate moving
 
 /*
  * -------------------- END Init Variables -------------------------------
@@ -96,9 +96,8 @@ int detect_motion(int acc_mag_calibrated, int gyro_mag_calibrated) {
     int gyro_mag = magnitude(gyro_x, gyro_y, gyro_z);
     
     // plug these values into the running average functions and return the running average
-    int acc_avg = iterate_running_average(sample_size_acc, running_avg_acc, acc_mag);
+    int acc_avg = 2000; //iterate_running_average(sample_size_acc, running_avg_acc, acc_mag);
     int gyro_avg = iterate_running_average(sample_size_gyro, running_avg_gyro, gyro_mag);
-    printf("%d\n", gyro_avg);
     
     // check values against calibrated
     int moving;

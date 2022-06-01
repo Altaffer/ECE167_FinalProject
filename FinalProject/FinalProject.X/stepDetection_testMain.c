@@ -77,9 +77,9 @@ void __ISR(_TIMER_4_VECTOR) Timer4IntHandler(void) {
     }  
     if (a > 500) {
         if(detect_motion(acc_cal, gyro_cal)) {
-            //printf("up\n");
+            printf("up\n");
         } else {
-            //printf("down\n");
+            printf("down\n");
         }
         t+=1;
     }
