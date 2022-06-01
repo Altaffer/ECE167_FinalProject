@@ -9,6 +9,8 @@
       <itemPath>../../Common/timers.h</itemPath>
       <itemPath>../../Common/BNO055.h</itemPath>
       <itemPath>../../Common/I2C.h</itemPath>
+      <itemPath>acc_Integrator.h</itemPath>
+      <itemPath>step_detection.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -23,6 +25,10 @@
       <itemPath>../../Common/BNO055.c</itemPath>
       <itemPath>../../Common/I2C.c</itemPath>
       <itemPath>main.c</itemPath>
+      <itemPath>acc_Integrator.c</itemPath>
+      <itemPath>accIntegrator_testMain.c</itemPath>
+      <itemPath>step_detection.c</itemPath>
+      <itemPath>stepDetection_testMain.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -359,6 +365,12 @@
         <property key="programoptions.uselvpprogramming" value="false"/>
         <property key="voltagevalue" value="3.25"/>
       </Tool>
+      <item path="accIntegrator_testMain.c" ex="true" overriding="false">
+      </item>
+      <item path="acc_Integrator.c" ex="true" overriding="false">
+      </item>
+      <item path="main.c" ex="true" overriding="false">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>

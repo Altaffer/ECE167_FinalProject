@@ -1,6 +1,6 @@
-build/default/production/CL-INTEGRATOR.o: CL-INTEGRATOR.c \
+build/default/production/running_avg.o: running_avg.c \
  ../../Common/BOARD.h ../../Common/I2C.h ../../Common/BNO055.h \
- Part1_DCM2Euler.h MatrixMath.h
+ step_detection.h acc_Integrator.h
 
 ../../Common/BOARD.h:
 
@@ -8,6 +8,6 @@ build/default/production/CL-INTEGRATOR.o: CL-INTEGRATOR.c \
 
 ../../Common/BNO055.h:
 
-Part1_DCM2Euler.h:
+step_detection.h:
 
-MatrixMath.h:
+acc_Integrator.h:
