@@ -15,6 +15,6 @@
  * @brief  sums the changes of angle for the flex sensor
  * @param sum; change in angle return
  * @author Luca Altaffer */
-void bendKnee(double *sum);
+void bendKnee(int *sum, int maxread, int minread);
 
 #endif

@@ -24,13 +24,14 @@ int iterate_running_average(int sample_size, int running_avg_arr[], int new_valu
     int average_sum = 0;
     
     // shift our sample array by 1 dropping the least recent value
-    for (int k = sample_size; k > 0; k--){        
+    int k;
+    for (k = sample_size; k > 0; k--){        
         running_avg_arr[k]= running_avg_arr[k-1];
-
         // while iterating, start summing all elements in the array
         // to take an average
         average_sum += running_avg_arr[k];
     }
+    
     // add in the newest sample to the array and add it to the average sum
     running_avg_arr[0] = new_value;
     average_sum += running_avg_arr[0];
@@ -57,11 +58,11 @@ double magnitude(double x, double y, double z) {
 /*
  * below are some variables that will hold values used for the running averages
  */
-static int sample_size_acc = 25;    // sample size of the running averages
+static int sample_size_acc = 10;    // sample size of the running averages
 static int sample_size_gyro = 10;
 
-int running_avg_acc[25];        // arrays to hold running averages
-int running_avg_gyro[10];       // BE SURE ARRAY SIZE = SAMPLE SIZE
+int running_avg_acc[10] = {0,0,0,0,0,0,0,0,0,0};        // arrays to hold running averages
+int running_avg_gyro[10] = {0,0,0,0,0,0,0,0,0,0};       // BE SURE ARRAY SIZE = SAMPLE SIZE
 
 static int acc_threshold_offset = 20;   // offset to calibrated values so noise
 static int gyro_threshold_offset = 3000;  // does not indicate moving

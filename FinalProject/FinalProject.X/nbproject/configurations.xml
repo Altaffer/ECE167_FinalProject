@@ -11,6 +11,8 @@
       <itemPath>../../Common/I2C.h</itemPath>
       <itemPath>acc_Integrator.h</itemPath>
       <itemPath>step_detection.h</itemPath>
+      <itemPath>../../Common/kneeRotation.h</itemPath>
+      <itemPath>../../Common/AD.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -29,6 +31,10 @@
       <itemPath>accIntegrator_testMain.c</itemPath>
       <itemPath>step_detection.c</itemPath>
       <itemPath>stepDetection_testMain.c</itemPath>
+      <itemPath>../../Common/kneeRotation.c</itemPath>
+      <itemPath>../../Common/AD.c</itemPath>
+      <itemPath>main_1.c</itemPath>
+      <itemPath>testFlex.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -397,7 +403,7 @@
         <C32Global>
         </C32Global>
       </item>
-      <item path="main.c" ex="true" overriding="false">
+      <item path="main.c" ex="false" overriding="false">
         <C32>
         </C32>
         <C32-AR>
@@ -412,6 +418,26 @@
         </C32CPP>
         <C32Global>
         </C32Global>
+      </item>
+      <item path="main_1.c" ex="true" overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
+      <item path="stepDetection_testMain.c" ex="true" overriding="false">
+      </item>
+      <item path="testFlex.c" ex="true" overriding="false">
       </item>
     </conf>
   </confs>

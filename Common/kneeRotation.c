@@ -21,9 +21,9 @@
 /******************
  VARIABLES
  ******************/
-double bend; // initial reading of the flex sensor converted to degrees
-double prevAng = 0; // the previous angle of the sensor if no init, set to 0
-double diff; // the difference between current and previous bends
+int bend; // initial reading of the flex sensor converted to degrees
+int prevAng = 0; // the previous angle of the sensor if no init, set to 0
+int diff; // the difference between current and previous bends
 //double sum; // accumulated sum of the difference
 
 /*bendKnee
@@ -32,15 +32,29 @@ double diff; // the difference between current and previous bends
  * take the abs of the change between current value and previous value
  * convert to angles from resistance
  */
-void bendKnee(double *sum) {
-    // reading AD pin 0 for the flex sensor and convert to degrees
-    bend = (((double)AD_ReadADPin(AD_A0) * 1.8) - 1110);
+void bendKnee(int *sum, int maxread, int minread) {
+    // collect reading and perform offset
+    int read = (AD_ReadADPin(AD_A0) - minread);
+    
+    // handle case where noise sets read to less than zero
+    if (read < 0) {
+        read = 0;
+    }
+    
+    // correct bend from scale 
+    bend = ((read) * 90) / (maxread-minread);
     // taking the difference between the the current angle and previous angle
     diff = (abs(bend - prevAng));
-    // adding to the sum over the step
-    *sum += diff;
-    // update previous angle
-    prevAng = bend;
+    //printf("%d\n\r", diff);
+    
+    // remove any tiny degree rotations in knee
+    if (diff > 6 && diff < 22) {
+        // adding to the sum over the step
+        *sum += diff;
+        
+        // update previous angle
+        prevAng = bend;
+    }
 
 }
 
