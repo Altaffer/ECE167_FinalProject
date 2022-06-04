@@ -17,4 +17,6 @@
  * @author Luca Altaffer */
 void bendKnee(int *sum, int maxread, int minread);
 
+int iterate_running_average_rot(int sample_size, int running_avg_arr[], int new_value);
+
 #endif

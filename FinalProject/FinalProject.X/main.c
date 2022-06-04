@@ -36,8 +36,7 @@ int delbend; // accumulated angle of the bend change of the angle
 // biases for detecting motion
 double gyrobias = 0;    // bias of the gyro
 double accbias = 0;     // bias of the accelerometer
-double rotbias_min = 0;
-int rot_minread = 572;  // minimum analog read of flex sensor
+int rot_minread = 606;  // minimum analog read of flex sensor
 int rot_maxread = 670;  // maximum read of flex sensor
 
 
@@ -67,20 +66,18 @@ void runSM(void) {
             //take the average of the gyro and acc
             accbias += magnitude((double)BNO055_ReadAccelX(), (double)BNO055_ReadAccelY(), (double)BNO055_ReadAccelZ());
             gyrobias += magnitude((double)BNO055_ReadGyroX(), (double)BNO055_ReadGyroY(), (double)BNO055_ReadGyroZ());
-            rotbias_min += AD_ReadADPin(AD_A0);
             
             // if 10 seconds has elapsed, enter plant
             if (total_time >= calibration_seconds) {
                 // average the gyro and acc biases
                 gyrobias = gyrobias / iterator; // average of gyro
                 accbias = accbias / iterator;   // average of acc
-                rotbias_min = accbias / iterator;
                 
                 // change to next state
                 curState = Plant;
                 
                 // signal ready
-                printf("ready!\n\r");
+                printf("ready!\n");
                 detect_motion(accbias, gyrobias);
             }
             
@@ -91,7 +88,7 @@ void runSM(void) {
             total_time += 1/freq;
             
             // this sums the change in rotation in the knee during the step every 50Hz
-            bendKnee(&delbend, rot_maxread, (int)rotbias_min);
+            bendKnee(&delbend, rot_maxread, rot_minread);
             
             // wait until there is a nonzero read to indicate movement
             if (detect_motion(accbias, gyrobias)) {
@@ -113,11 +110,11 @@ void runSM(void) {
             step_timer += 1/freq;
             
             // this sums the change in rotation in the knee during the step every 50Hz
-            bendKnee(&delbend, rot_maxread, (int)rotbias_min);
+            bendKnee(&delbend, rot_maxread, rot_minread);
             
             if (!detect_motion(accbias, gyrobias)) {
                 // printing the data
-                printf("delta theta: %d | time elapsed: %f\n\r", delbend, step_timer);
+                printf("%d, %f\n", delbend, step_timer);
                 
                 // transition to the next state
                 curState = Plant;
@@ -151,7 +148,7 @@ int main(void) {
     AD_Init();
     AD_AddPins(AD_A0);
     timer_init();
-    printf("\n\ncalibrating...\n\r");
+    printf("\n\ncalibrating...\n");
     
     while (1);
 }

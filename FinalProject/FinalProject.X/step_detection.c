@@ -65,7 +65,7 @@ int running_avg_acc[10] = {0,0,0,0,0,0,0,0,0,0};        // arrays to hold runnin
 int running_avg_gyro[10] = {0,0,0,0,0,0,0,0,0,0};       // BE SURE ARRAY SIZE = SAMPLE SIZE
 
 static int acc_threshold_offset = 20;   // offset to calibrated values so noise
-static int gyro_threshold_offset = 3000;  // does not indicate moving
+static int gyro_threshold_offset = 3500;  // does not indicate moving
 
 /*
  * -------------------- END Init Variables -------------------------------

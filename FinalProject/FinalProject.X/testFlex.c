@@ -26,11 +26,12 @@ int main(void) {
     while (1) {
         if (TIMERS_GetMilliSeconds() % 20 == 0) {
             //double bend = (90/(670-572))*((double)AD_ReadADPin(AD_A0) - 572);
+            int bend = AD_ReadADPin(AD_A0);
             int read = (AD_ReadADPin(AD_A0) - 572);
             if (read < 0) {
                 read = 0;
             }
-            int bend = ((read) * 90) / (670-572);
+            //int bend = ((read) * 120) / (670-572);
             
             printf("theta = %d\n\r",bend);
         }
